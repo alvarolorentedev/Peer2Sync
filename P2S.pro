@@ -1,7 +1,6 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    P2S_Lib \
-    P2S_Test \
-    PS2_App
-
+    src/PS2_App \
+    src/P2S_Lib \
+    test/P2S_Test \
