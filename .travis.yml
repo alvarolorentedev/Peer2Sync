@@ -10,4 +10,4 @@ before_install:
 script:
     - qmake
     - make
-    - ./build/P2S_Test/tst_p2s_testtest
+    - ./build-P2S-Desktop-Debug/P2S_Test/tst_p2s_testtest #run test
