@@ -5,7 +5,7 @@ cache: apt
 
 before_install:
     - sudo apt-get -qq update
-    - sudo apt-get -qq install qt5-qmake qt5-default qtbase5-dev qttools5-dev-tools gcc-4.8
+    - sudo apt-get -qq install qt5-qmake qt5-default qtbase5-dev qttools5-dev-tools gcc g++
 
 script:
     - qmake
