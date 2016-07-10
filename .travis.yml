@@ -4,9 +4,10 @@ language: cpp
 cache: apt
 
 before_install:
-  - sudo apt-get -qq update
-  - sudo apt-get -qq install qt5-qmake qt5-default qtbase5-dev libbotan1.10-dev gcc-4.8
+    - sudo apt-get -qq update
+    - sudo apt-get -qq install qt5-qmake qt5-default qtbase5-dev qttools5-dev-tools gcc-4.8
 
 script:
-  - qmake
-  - make
+    - qmake
+    - make
+    - ./build/P2S_Test/tst_p2s_testtest
