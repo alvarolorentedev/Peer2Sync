@@ -10,4 +10,4 @@ before_install:
 script:
     - qmake
     - make
-    - ./P2S_Test/tst_p2s_testtest #run test
+    - ./test/P2S_Lib_Test/tst_p2s_testtest #run Lib test
