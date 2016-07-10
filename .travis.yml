@@ -1,10 +1,12 @@
+sudo: required
+dist: trusty
 language: cpp
+cache: apt
 
-install:
-    - sudo apt-add-repository ppa:ubuntu-sdk-team/ppa -y
-    - sudo apt-get update
-    - sudo apt-get install qt5-default qttools5-dev-tools qt5-qmake
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get -qq install qt5-qmake qt5-default qtbase5-dev libbotan1.10-dev gcc-4.8
+
 script:
-    - qmake -project
-    - qmake P2S.pro
-    - make
+  - qmake
+  - make
