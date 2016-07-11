@@ -5,3 +5,7 @@ CONFIG -= qt
 
 SOURCES += main.cpp
 
+LIBS += \
+  -lboost_thread \
+  -lboost_system \
+  -pthread
