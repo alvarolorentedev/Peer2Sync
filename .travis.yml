@@ -5,9 +5,9 @@ cache: apt
 
 before_install:
     - sudo apt-get -qq update
-    - sudo apt-get -qq install qt5-qmake qt5-default qtbase5-dev qttools5-dev-tools gcc g++ libboost-all-dev 
+    - sudo apt-get -qq install qt5-qmake qt5-default qtbase5-dev qttools5-dev-tools gcc g++ libboost-all-dev
 
 script:
     - qmake
     - make
-    - ./test/P2S_Lib_Test/tst_p2s_testtest #run Lib test
+    - ./test/P2S_App_Test/tst_p2s_testtest #run App test
