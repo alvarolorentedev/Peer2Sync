@@ -1,16 +1,14 @@
 #include <iostream>
-#include "../../dependencies/crow_all.h"
+#include <memory>
+#include "CrowServer.h"
+#include "IServer.h"
 
 using namespace std;
+using namespace P2S::App;
 
 int main()
 {
-    crow::SimpleApp app;
-
-        CROW_ROUTE(app, "/rpc")([](){
-            return "Hello world";
-        });
-
-        app.port(8080).multithreaded().run();
+    std::unique_ptr<IServer> server = std::make_unique<CrowServer>();
+    server->start(8080);
 }
 
