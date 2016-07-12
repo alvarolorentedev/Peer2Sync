@@ -1,12 +1,15 @@
 #include "CrowServer.h"
-#include "../../dependencies/crow_all.h"
 
 using namespace P2S::App;
 
-void CrowServer::start(int port)
+void CrowServer::Subscribe(const std::string& path, std::function<void()>& function)
 {
-    crow::SimpleApp app;
-    CROW_ROUTE(app, "/rpc")([](){ return "Hello world"; });
-    app.port(port).multithreaded().run();
+    app.route_dynamic(std::string(path))([](){ return "Hello world"; });
+    //CROW_ROUTE(app, "/rpc")([](){ return "Hello world"; });
 }
 
+void CrowServer::Start(const int& port)
+{
+    //CROW_ROUTE(app, "/rpc")([](){ return "Hello world"; });
+    app.port(port).multithreaded().run();
+}
