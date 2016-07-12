@@ -4,7 +4,7 @@ CONFIG -= app_bundle
 CONFIG -= qt
 QMAKE_CXX="g++-5"
 QMAKE_CC="gcc-5"
-QMAKE_CXXFLAGS += -std=c++14
+QMAKE_CXXFLAGS += -O3 -std=c++14
 
 SOURCES += main.cpp \
     CrowServer.cpp

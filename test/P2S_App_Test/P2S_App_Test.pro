@@ -17,3 +17,4 @@ TEMPLATE = app
 
 SOURCES += tst_p2s_testtest.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
+

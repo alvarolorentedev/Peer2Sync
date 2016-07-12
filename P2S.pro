@@ -2,4 +2,10 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
     src \
-    test
+    test \
+    dependencies \
+
+OTHER_FILES += \
+    .gitignore \
+    .travis.yml \
+    LICENSE \
