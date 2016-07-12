@@ -18,10 +18,10 @@ matrix:
             - gcc-5 g++-5
             - libboost-all-dev
             - g++-5
-      env: COMPILER=g++-5
 
 before_install:
   - sudo apt-get update -qq
+  - if [ "$CXX" = "g++" ]; then export CXX="g++-5" CC="gcc-5"; fi
 
 script:
     - qmake
