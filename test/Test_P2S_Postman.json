@@ -10,37 +10,7 @@
 		{
 			"name": "datastorePut",
 			"description": "",
-			"item": [
-				{
-					"name": "datastorePutExist",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": "tests[\"Successful POST request\"] = responseCode.code === 201 || responseCode.code === 202;"
-							}
-						}
-					],
-					"request": {
-						"url": "http://localhost:8080/rpc",
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				}
-			]
+			"item": []
 		}
 	]
 }
