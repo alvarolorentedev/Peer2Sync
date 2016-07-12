@@ -4,6 +4,7 @@ language: cpp
 cache: apt
 
 before_install:
+    - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
     - sudo apt-get -qq update
     - sudo apt-get -qq install qt5-qmake qt5-default qtbase5-dev qttools5-dev-tools gcc-5 g++-5 libboost-all-dev
 
