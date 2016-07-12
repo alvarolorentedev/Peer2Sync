@@ -20,6 +20,9 @@ matrix:
             - g++-5
       env: COMPILER=g++-5
 
+before_install:
+  - sudo apt-get update -qq
+  
 script:
     - qmake
     - make
