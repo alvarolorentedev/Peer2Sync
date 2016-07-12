@@ -1,8 +1,8 @@
 #ifndef SERVER_H
 #define SERVER_H
 
-#include <map>
 #include "IServer.h"
+
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 #include "../../dependencies/crow_all.h"
 #pragma GCC diagnostic warning "-Wunused-parameter"

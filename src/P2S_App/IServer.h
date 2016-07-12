@@ -1,7 +1,6 @@
 #ifndef ISERVER_H
 #define ISERVER_H
-#include <functional>
-#include <iostream>
+
 namespace P2S {
 namespace App {
 
