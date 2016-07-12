@@ -3,27 +3,27 @@ dist: trusty
 language: cpp
 cache: apt
 
-matrix:
-  include:
-    - compiler: gcc
-      addons:
-        apt:
-          sources:
+compiler:
+    - gcc
+
+addons:
+    apt:
+        sources:
             - ubuntu-toolchain-r-test
-          packages:
+        packages:
             - qt5-qmake
             - qt5-default
             - qtbase5-dev
             - qttools5-dev-tools
-            - gcc-5 g++-5
             - libboost-all-dev
+            - gcc-5
             - g++-5
 
 before_install:
-  - sudo apt-get update -qq
   - if [ "$CXX" = "g++" ]; then export CXX="g++-5" CC="gcc-5"; fi
 
 script:
+    - $CXX --version
     - qmake
     - make
     - ./test/P2S_App_Test/tst_p2s_testtest #run App test
