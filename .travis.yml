@@ -28,5 +28,5 @@ script:
     - make
     - ./test/P2S_App_Test/tst_p2s_testtest #run App test
     - ./src/P2S_App/P2S_App&
-    - newman -c ./test/Test_P2S_Postman.json
+    - newman -c ./test/Test_P2S_Postman.json -x
     - sudo pkill P2S_App
