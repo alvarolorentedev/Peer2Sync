@@ -1,0 +1,46 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Test_P2S",
+		"_postman_id": "e8fc2447-f964-3552-1838-76dcfc48b126",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "datastorePut",
+			"description": "",
+			"item": [
+				{
+					"name": "datastorePutExist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "tests[\"Successful POST request\"] = responseCode.code === 201 || responseCode.code === 202;"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8080/rpc",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
