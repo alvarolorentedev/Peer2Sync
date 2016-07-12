@@ -1,9 +1,7 @@
 sudo: required
 dist: trusty
-
 language: cpp
-compiler:
-    - gcc
+compiler: gcc
 
 addons:
     apt:
@@ -18,12 +16,8 @@ addons:
             - gcc-5
             - g++-5
 
-before_install:
-  - test -n $CC  && unset CC
-  - test -n $CXX && unset CXX
-
 install:
-  - if [ "$CXX" = "g++" ]; then export CXX="g++-5" CC="gcc-5"; fi
+  - export CXX="g++-5" CC="gcc-5"
 
 script:
     - $CXX --version
