@@ -1,19 +1,18 @@
-#-------------------------------------------------
-#
-# Project created by QtCreator 2016-07-09T10:19:00
-#
-#-------------------------------------------------
-
-QT       += testlib
-
-QT       -= gui
-
-TARGET = tst_p2s_testtest
-CONFIG   += console
-CONFIG   -= app_bundle
-
 TEMPLATE = app
+LANGUAGE  = C++
+TARGET = p2s_lib_test
+CONFIG   += console c++14
+CONFIG   -= app_bundle -qt
 
+QMAKE_CXX="g++-5"
+QMAKE_CC="gcc-5"
+QMAKE_CXXFLAGS += -O3 -std=c++14
 
-SOURCES += tst_p2s_testtest.cpp
-DEFINES += SRCDIR=\\\"$$PWD/\\\"
+SOURCES += main.cpp \
+
+LIBS += -lgtest \
+    -pthread \
+    -L$$OUT_PWD/../../src/P2S_Lib/ -lP2S_Lib
+
+INCLUDEPATH += $$PWD/../../src/P2S_Lib
+DEPENDPATH += $$PWD/../../src/P2S_Lib
