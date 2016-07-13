@@ -1,13 +1,34 @@
 sudo: required
 dist: trusty
 language: cpp
-cache: apt
+compiler: gcc
 
-before_install:
-    - sudo apt-get -qq update
-    - sudo apt-get -qq install qt5-qmake qt5-default qtbase5-dev qttools5-dev-tools gcc g++
+addons:
+    apt:
+        sources:
+            - ubuntu-toolchain-r-test
+        packages:
+            - qt5-qmake
+            - qt5-default
+            - qtbase5-dev
+            - qttools5-dev-tools
+            - libboost-all-dev
+            - gcc-5
+            - g++-5
+            - nodejs
+            - npm
+            - nodejs-legacy
+            - libgtest-dev
+            - cmake
+
+install:
+  - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 60 --slave /usr/bin/g++ g++ /usr/bin/g++-5
+  - sudo npm install -g newman
+  - "cd /usr/src/gtest && sudo cmake . && sudo cmake --build . && sudo mv libg* /usr/local/lib/ ; cd -"
 
 script:
     - qmake
     - make
-    - ./test/P2S_Lib_Test/tst_p2s_testtest #run Lib test
+    - ./test/P2S_Lib_Test/p2s_lib_test
+    - ./src/P2S_App/P2S_App&
+    - newman -c ./test/Test_P2S_Postman.json -x
