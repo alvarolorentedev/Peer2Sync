@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2016-07-09T10:19:00
+# Project created by QtCreator 2016-07-12T21:51:29
 #
 #-------------------------------------------------
 
@@ -8,13 +8,13 @@ QT       += testlib
 
 QT       -= gui
 
-TARGET = tst_p2s_testtest
+TARGET = p2s_lib_test
 CONFIG   += console
 CONFIG   -= app_bundle
 
 TEMPLATE = app
 
+SOURCES += main.cpp \
 
-SOURCES += tst_p2s_testtest.cpp
-DEFINES += SRCDIR=\\\"$$PWD/\\\"
-
+LIBS += -lgtest \
+  -pthread
