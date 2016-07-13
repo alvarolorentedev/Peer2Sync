@@ -24,9 +24,7 @@ addons:
 install:
   - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 60 --slave /usr/bin/g++ g++ /usr/bin/g++-5
   - sudo npm install -g newman
-  - sudo cmake /usr/src/gtest/CMakeLists.txt
-  - sudo make /usr/src/gtest/
-  - sudo cp /usr/src/gtest/*.a /usr/lib
+  - "cd /usr/src/gtest && sudo cmake . && sudo cmake --build . && sudo mv libg* /usr/local/lib/ ; cd -"
 
 script:
     - qmake
