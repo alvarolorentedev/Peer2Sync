@@ -1,5 +1,4 @@
-#ifndef P2S_LIB_GLOBAL_H
-#define P2S_LIB_GLOBAL_H
+#pragma once
 
 #if defined _WIN32 || defined __CYGWIN__
   #ifdef BUILDING_DLL
@@ -25,5 +24,3 @@
     #define P2S_LIBSHARED_LOCAL
   #endif
 #endif
-
-#endif // P2S_LIB_GLOBAL_H

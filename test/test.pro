@@ -1,4 +1,5 @@
 TEMPLATE = subdirs
+CONFIG += ordered
 
 SUBDIRS += \
     P2S_Lib_Test

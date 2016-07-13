@@ -1,5 +1,4 @@
-#ifndef ISERVER_H
-#define ISERVER_H
+#pragma once
 
 namespace P2S {
 namespace App {
@@ -20,5 +19,4 @@ public:
 }
 }
 
-#endif // ISERVER_H
 

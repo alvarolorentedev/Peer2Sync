@@ -1,26 +1,25 @@
-#-------------------------------------------------
-#
-# Project created by QtCreator 2016-07-12T21:34:26
-#
-#-------------------------------------------------
+TEMPLATE = lib
+LANGUAGE  = C++
+CONFIG += c++14 precompile_header
+CONFIG -= qt
 
-QT       -= core gui
+QMAKE_CXX="g++-5"
+QMAKE_CC="gcc-5"
+QMAKE_CXXFLAGS += -O3 -std=c++14
 
 TARGET = P2S_Lib
-TEMPLATE = lib
 
 DEFINES += P2S_LIB_LIBRARY
 
 PRECOMPILED_HEADER = precompiled.h
 
 SOURCES += \
-    request.cpp \
-    response.cpp
+    rpcrequest.cpp
 
 HEADERS += precompiled.h \
         p2s_lib_global.h \
-    request.h \
-    response.h
+    irequest.h \
+    rpcrequest.h
 
 #unix {
 #    target.path = /usr/lib

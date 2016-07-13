@@ -1,5 +1,4 @@
-#ifndef SERVER_H
-#define SERVER_H
+#pragma once
 
 #include "IServer.h"
 
@@ -24,4 +23,3 @@ public:
 }
 }
 
-#endif // SERVER_H
