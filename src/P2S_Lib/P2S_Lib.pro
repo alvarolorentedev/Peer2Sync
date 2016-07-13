@@ -14,13 +14,13 @@ DEFINES += P2S_LIB_LIBRARY
 PRECOMPILED_HEADER = precompiled.h
 
 SOURCES += \
-    rpcrequest.cpp \
-    jsonrpc2validator.cpp
+    jsonrpcvalidator.cpp \
+    jsonrpcrequest.cpp
 
 HEADERS += precompiled.h \
-        p2s_lib_global.h \
     irequest.h \
     iresponse.h \
-    rpcrequest.h \
-    jsonrpc2validator.h
+    jsonrpcrequest.h \
+    jsonrpcvalidator.h \
+    p2slib.h
 

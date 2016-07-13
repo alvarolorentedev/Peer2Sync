@@ -1,23 +1,19 @@
 #pragma once
 
-#include "p2s_lib_global.h"
+#include "p2slib.h"
+#include "jsonrpcvalidator.h"
 #include "irequest.h"
 #include "../../dependencies/json.hpp"
 
 namespace P2S {
 namespace Lib {
 
-class P2S_LIBSHARED_EXPORT RPCRequest : public IRequest
+class P2S_LIBSHARED_EXPORT JsonRpcRequest : public IRequest
 {
     nlohmann::json content;
-    std::vector<std::function<bool(nlohmann::json)>> rules =
-    {
-        [](nlohmann::json value){ return value["jsonrpc"] == "2.0"; }
-    };
+    JSonRPCValidator validator;
 public:
     virtual void Parse(const std::string& rawContent);
-private:
-    bool Validate(nlohmann::json object);
 };
 
 
