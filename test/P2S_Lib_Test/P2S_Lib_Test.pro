@@ -11,7 +11,6 @@ QMAKE_CXXFLAGS += -O3 -std=c++14
 PRECOMPILED_HEADER = precompiled.h
 
 HEADERS += \
-    precompiled.h \
     precompiled.h
 
 SOURCES += main.cpp \
@@ -19,7 +18,8 @@ SOURCES += main.cpp \
 
 LIBS += -lgtest \
     -pthread \
-    -L$$OUT_PWD/../../src/P2S_Lib/ -lP2S_Lib
+    -L$$OUT_PWD/../../src/P2S_Lib/ -lP2S_Lib  \
+    -Wl,-rpath=$$OUT_PWD/../../src/P2S_Lib
 
 INCLUDEPATH += $$PWD/../../src/P2S_Lib
 DEPENDPATH += $$PWD/../../src/P2S_Lib
