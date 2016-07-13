@@ -12,5 +12,7 @@ public:
     virtual ~IRequest() = default;
 };
 
+using IRequestPtr = std::shared_ptr<IRequest>;
+
 }
 }

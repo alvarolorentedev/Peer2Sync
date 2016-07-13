@@ -9,7 +9,6 @@ QMAKE_CC="gcc-5"
 QMAKE_CXXFLAGS += -O3 -std=c++14
 
 SOURCES += main.cpp \
-    rpcRequestTest.cpp
 
 LIBS += -lgtest \
     -pthread \

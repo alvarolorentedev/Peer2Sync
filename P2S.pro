@@ -2,9 +2,9 @@ TEMPLATE = subdirs
 CONFIG += ordered
 
 SUBDIRS += \
+    dependencies \
     src \
     test \
-    dependencies \
 
 OTHER_FILES += \
     .gitignore \

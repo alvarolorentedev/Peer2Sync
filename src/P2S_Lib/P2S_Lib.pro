@@ -14,14 +14,9 @@ DEFINES += P2S_LIB_LIBRARY
 PRECOMPILED_HEADER = precompiled.h
 
 SOURCES += \
-    rpcrequest.cpp
 
 HEADERS += precompiled.h \
         p2s_lib_global.h \
     irequest.h \
-    rpcrequest.h
+    iresponse.h
 
-#unix {
-#    target.path = /usr/lib
-#    INSTALLS += target
-#}
