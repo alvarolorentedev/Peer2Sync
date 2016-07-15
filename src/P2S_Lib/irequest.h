@@ -1,6 +1,6 @@
 #pragma once
 
-#include "p2s_lib_global.h"
+#include "p2slib.h"
 
 namespace P2S {
 namespace Lib {
@@ -8,7 +8,7 @@ namespace Lib {
 class P2S_LIBSHARED_EXPORT IRequest
 {
 public:
-    virtual void Parse(const std::string& content) = 0;
+    virtual void Deserialize(const std::string& content) = 0;
     virtual ~IRequest() = default;
 };
 

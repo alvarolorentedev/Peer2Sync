@@ -1,6 +1,6 @@
 #pragma once
 
-#include "p2s_lib_global.h"
+#include "p2slib.h"
 
 namespace P2S {
 namespace Lib {
