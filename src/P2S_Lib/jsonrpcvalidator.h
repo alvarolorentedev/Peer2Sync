@@ -25,5 +25,23 @@ public:
     }) {};
 };
 
+class P2S_LIBSHARED_EXPORT JSonRPCResponseValidator : public JSonRPCValidator
+{
+public:
+    JSonRPCResponseValidator() : JSonRPCValidator(
+    {
+        [](nlohmann::json value){ return value["jsonrpc"] == "2.0"; },
+        [](nlohmann::json value){ return
+                                    (value.find("result") == value.end() && value.find("error") != value.end())
+                                ||  (value.find("result") != value.end() && value.find("error") == value.end());
+                                },
+        [](nlohmann::json value){
+                                if(value.find("error") != value.end())
+                                    return value.find("error").value().is_object();
+                                return true;
+                                }
+    }) {};
+};
+
 }
 }

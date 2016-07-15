@@ -14,8 +14,9 @@ HEADERS += \
     precompiled.h
 
 SOURCES += main.cpp \
-    rpcRequesttest.cpp \
-    jsonrpcvalidatortest.cpp
+    jsonrpcvalidatortest.cpp \
+    jsonrpcrequesttest.cpp \
+    jsonrpcresponsetest.cpp
 
 LIBS += -lgtest \
     -pthread \
