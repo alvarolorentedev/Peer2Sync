@@ -5,7 +5,7 @@ using namespace std;
 
 using json = nlohmann::json;
 
-void JsonRpcRequest::Parse(const string &rawContent)
+void JsonRpcRequest::Deserialize(const string &rawContent)
 {
     auto parsed = json::parse(rawContent);
     if(!validator.IsValid(parsed))

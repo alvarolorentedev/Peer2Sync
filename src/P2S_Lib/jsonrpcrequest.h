@@ -11,9 +11,9 @@ namespace Lib {
 class P2S_LIBSHARED_EXPORT JsonRpcRequest : public IRequest
 {
     nlohmann::json content;
-    JSonRPCValidator validator;
+    JSonRPCRequestValidator validator;
 public:
-    virtual void Parse(const std::string& rawContent);
+    virtual void Deserialize(const std::string& rawContent);
 };
 
 
