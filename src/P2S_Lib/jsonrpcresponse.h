@@ -8,12 +8,29 @@
 namespace P2S {
 namespace Lib {
 
+
 class P2S_LIBSHARED_EXPORT JsonRpcResponse : public IResponse
 {
-    nlohmann::json content;
+private:
     JSonRPCRequestValidator validator;
+protected:
+    nlohmann::json content;
+    JsonRpcResponse(uint32_t id);
 public:
+    JsonRpcResponse() = delete;
     virtual std::string Serialize();
+};
+
+class P2S_LIBSHARED_EXPORT  ValidJsonRpcResponse : public JsonRpcResponse
+{
+public:
+    ValidJsonRpcResponse(std::string result, uint16_t id);
+};
+
+class P2S_LIBSHARED_EXPORT  ErrorJsonRpcResponse : public JsonRpcResponse
+{
+public:
+    ErrorJsonRpcResponse(int code, std::string message, uint16_t id, std::string data = "");
 };
 
 class ResponseException : public std::runtime_error
