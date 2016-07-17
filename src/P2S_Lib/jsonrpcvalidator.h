@@ -6,15 +6,24 @@
 namespace P2S {
 namespace Lib {
 
+/**
+ * @name    JSonRPCValidator
+ * @brief   validation for correct creation or parsing of packages
+ */
 class P2S_LIBSHARED_EXPORT JSonRPCValidator
 {
     std::vector<std::function<bool(nlohmann::json)>> rules;
 protected:
     JSonRPCValidator(std::vector<std::function<bool(nlohmann::json)>> rulesParam) : rules(rulesParam) {}
 public:
+    JSonRPCValidator() = delete;
     bool IsValid(nlohmann::json object);
 };
 
+/**
+ * @name    JSonRPCValidator
+ * @brief   validation for correct parsing of JSON-RPC 2.0 packages
+ */
 class P2S_LIBSHARED_EXPORT JSonRPCRequestValidator : public JSonRPCValidator
 {
 public:
@@ -25,6 +34,10 @@ public:
     }) {};
 };
 
+/**
+ * @name    JSonRPCValidator
+ * @brief   validation for correct generation of JSON-RPC 2.0 packages
+ */
 class P2S_LIBSHARED_EXPORT JSonRPCResponseValidator : public JSonRPCValidator
 {
 public:

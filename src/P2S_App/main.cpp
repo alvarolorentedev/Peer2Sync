@@ -6,6 +6,10 @@ using namespace std;
 using namespace P2S::App;
 using namespace P2S::Lib;
 
+/**
+ * @name    Main
+ * @brief   Entrypoit of application
+ */
 int main(/*int argc, char *argv[]*/)
 {
     std::unique_ptr<IServer> server = std::make_unique<CrowServer>();
