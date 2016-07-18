@@ -22,7 +22,8 @@ LIBS += \
   -lboost_thread \
   -lboost_system \
   -pthread \
-  -L$$OUT_PWD/../P2S_Lib/ -lP2S_Lib
-
+  -L$$OUT_PWD/../P2S_Lib/ -lP2S_Lib \
+  -Wl,-rpath=$$OUT_PWD/../P2S_Lib
+  
 INCLUDEPATH += $$PWD/../P2S_Lib
 DEPENDPATH += $$PWD/../P2S_Lib
