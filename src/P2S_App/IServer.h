@@ -5,11 +5,19 @@
 namespace P2S {
 namespace App {
 
+/**
+ * @name    HTTPMethod
+ * @brief   enum with types of Http methods
+ */
 enum class HTTPMethod
 {
     POST
 };
 
+/**
+ * @name    IServer
+ * @brief   Interface abstraction of the server
+ */
 class IServer
 {
 public:

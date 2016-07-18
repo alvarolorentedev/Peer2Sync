@@ -8,6 +8,10 @@
 namespace P2S {
 namespace Lib {
 
+/**
+ * @name    JsonRpcRequest
+ * @brief   implementation of the request for JSON-RPC 2.0
+ */
 class P2S_LIBSHARED_EXPORT JsonRpcRequest : public IRequest
 {
     nlohmann::json content;
