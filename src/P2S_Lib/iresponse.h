@@ -5,6 +5,10 @@
 namespace P2S {
 namespace Lib {
 
+/**
+ * @name    IResponse
+ * @brief   Interface abstraction for responses from server
+ */
 class P2S_LIBSHARED_EXPORT IResponse
 {
 public:

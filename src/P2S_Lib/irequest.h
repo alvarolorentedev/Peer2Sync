@@ -5,6 +5,10 @@
 namespace P2S {
 namespace Lib {
 
+/**
+ * @name    IRequest
+ * @brief   Interface abstraction for request comming to server
+ */
 class P2S_LIBSHARED_EXPORT IRequest
 {
 public:
