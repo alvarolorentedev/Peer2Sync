@@ -12,3 +12,13 @@ void JsonRpcRequest::Deserialize(const string &rawContent)
         throw RequestParseException("json is not valid JSON-RPC 2.0");
     content = parsed;
 }
+
+string JsonRpcRequest::GetMethod()
+{
+    return content["method"];
+}
+
+nlohmann::json JsonRpcRequest::GetParams()
+{
+    return content["params"];
+}
