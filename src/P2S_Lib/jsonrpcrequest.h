@@ -18,6 +18,8 @@ class P2S_LIBSHARED_EXPORT JsonRpcRequest : public IRequest
     JSonRPCRequestValidator validator;
 public:
     virtual void Deserialize(const std::string& rawContent);
+    std::string GetMethod();
+    nlohmann::json GetParams();
 };
 
 

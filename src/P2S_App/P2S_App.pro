@@ -10,13 +10,15 @@ QMAKE_CXXFLAGS += -O3 -std=c++14
 PRECOMPILED_HEADER = precompiled.h
 
 SOURCES += main.cpp \
-    CrowServer.cpp
+    CrowServer.cpp \
+    rpcmethods.cpp
 
 HEADERS += \
     precompiled.h \
     CrowServer.h \
     IServer.h \
-    precompiled.h
+    precompiled.h \
+    rpcmethods.h
 
 LIBS += \
   -lboost_thread \

@@ -1,5 +1,6 @@
 #include "CrowServer.h"
 #include "IServer.h"
+#include "rpcmethods.h"
 #include <jsonrpcresponse.h>
 
 using namespace std;
@@ -12,10 +13,8 @@ using namespace P2S::Lib;
  */
 int main(/*int argc, char *argv[]*/)
 {
-    std::unique_ptr<IServer> server = std::make_unique<CrowServer>();
-    server->Subscribe("/rpc", HTTPMethod::POST, [&](const string& req){
-        return make_shared<ValidJsonRpcResponse>("TODO",10);
-    });
+    auto server = std::make_shared<CrowServer>();
+    RpcMethods methods(server);
     server->Start(8080);
 }
 
