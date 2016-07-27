@@ -11,8 +11,16 @@ RpcMethods::RpcMethods(const IServerPtr& server)
     server->Subscribe("/rpc", HTTPMethod::POST, [&](const string& req){
         JsonRpcRequest request;
         request.Deserialize(req);
-        this->paths[request.GetMethod()](request.GetParams());
-        return make_shared<ValidJsonRpcResponse>("TODO",10);
+        IResponsePtr response;
+        try{
+            response = this->paths[request.GetMethod()](request.GetParams());
+        }
+        catch(...)
+        {
+            //TODO: generate valid error response
+            response = make_shared<ErrorJsonRpcResponse>(0,"Exception has been throw",0);
+        }
+        return response;
     });
 }
 
