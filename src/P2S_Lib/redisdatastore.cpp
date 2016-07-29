@@ -1,6 +1,7 @@
 #include "redisdatastore.h"
 
 using namespace P2S::Lib;
+using namespace cpp_redis;
 using namespace std;
 
 void RedisDataStore::Connect(const string& host, const uint16_t& port)

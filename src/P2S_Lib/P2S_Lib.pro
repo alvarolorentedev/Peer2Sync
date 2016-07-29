@@ -29,4 +29,4 @@ HEADERS += precompiled.h \
     idatastore.h \
     redisdatastore.h
 
-
+LIBS += -lcpp_redis \
