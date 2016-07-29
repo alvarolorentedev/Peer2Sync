@@ -12,7 +12,7 @@ namespace Lib {
 class P2S_LIBSHARED_EXPORT IDataStore
 {
 public:
-    virtual void Connect(const std::string& host, const uint16_t& port);
+    virtual void Connect(const std::string& host, const uint16_t& port) = 0;
     virtual void Set(std::string key, std::string value) = 0;
     virtual std::string Get(std::string key) = 0;
     virtual ~IDataStore() = default;
