@@ -29,6 +29,7 @@ install:
     - "git clone https://github.com/Cylix/cpp_redis.git && cd cpp_redis && mkdir build && cd build && cmake .. && make -j && sudo make install -j ; cd .."
 
 script:
+    - ls -la
     - qmake
     - make
     - ./test/P2S_Lib_Test/p2s_lib_test
