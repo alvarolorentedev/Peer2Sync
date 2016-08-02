@@ -10,7 +10,10 @@ namespace App {
 
 class RpcMethods
 {
-    std::map<std::string, std::function<P2S::Lib::IResponsePtr(nlohmann::json)>> paths = {  };
+    std::map<std::string, std::function<P2S::Lib::IResponsePtr(nlohmann::json)>> paths =
+    {
+        { "datastorePut" , nullptr }
+    };
 public:
     RpcMethods(const P2S::App::IServerPtr& server);
 };
