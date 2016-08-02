@@ -26,7 +26,7 @@ install:
     - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 60 --slave /usr/bin/g++ g++ /usr/bin/g++-5
     - sudo npm install -g newman
     - "cd /usr/src/gtest && sudo cmake . && sudo cmake --build . && sudo mv libg* /usr/local/lib/ ; cd -"
-    - "git clone https://github.com/Cylix/cpp_redis.git && cd cpp_redis && mkdir build && cd build && cmake .. && make -j && sudo make install -j && cd .. && cd .."
+    - "git clone https://github.com/Cylix/cpp_redis.git && cd cpp_redis && mkdir build && cd build && cmake -DCMAKE_INSTALL_PREFIX=/usr/lib .. && sudo make install -j && cd .. && cd .."
 
 script:
     - qmake
