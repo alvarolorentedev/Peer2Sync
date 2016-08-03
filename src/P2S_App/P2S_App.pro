@@ -11,14 +11,17 @@ PRECOMPILED_HEADER = precompiled.h
 
 SOURCES += main.cpp \
     CrowServer.cpp \
-    rpcmethods.cpp
+    rpcmethods.cpp \
+    datastoreput.cpp
 
 HEADERS += \
     precompiled.h \
     CrowServer.h \
     IServer.h \
     precompiled.h \
-    rpcmethods.h
+    rpcmethods.h \
+    datastoreput.h \
+    irpcmethod.h
 
 LIBS += \
   -lboost_thread \

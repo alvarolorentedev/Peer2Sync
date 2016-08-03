@@ -1,21 +1,24 @@
 #pragma once
 
 #include <jsonrpcresponse.h>
+#include<idatastore.h>
 #include "IServer.h"
 #include "../../dependencies/json.hpp"
+#include "irpcmethod.h"
 
 namespace P2S {
 namespace App {
 
-
+/**
+ * @name    RpcMethods
+ * @brief   Implementation of the holding class of the rpc methods
+ */
 class RpcMethods
 {
-    std::map<std::string, std::function<P2S::Lib::IResponsePtr(nlohmann::json)>> paths =
-    {
-        { "datastorePut" , nullptr }
-    };
+    P2S::Lib::IDataStorePtr datastore;
+    std::map<std::string, P2S::App::IRpcMethodPtr> paths;
 public:
-    RpcMethods(const P2S::App::IServerPtr& server);
+    RpcMethods(const P2S::App::IServerPtr& server, const P2S::Lib::IDataStorePtr& dstore);
 };
 
 }

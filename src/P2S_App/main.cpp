@@ -14,7 +14,7 @@ using namespace P2S::Lib;
 int main(/*int argc, char *argv[]*/)
 {
     auto server = std::make_shared<CrowServer>();
-    RpcMethods methods(server);
+    RpcMethods methods(server, nullptr);
     server->Start(8080);
 }
 

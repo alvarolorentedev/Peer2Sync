@@ -1,19 +1,24 @@
 #include "rpcmethods.h"
 #include <jsonrpcresponse.h>
 #include <jsonrpcrequest.h>
+#include "datastoreput.h"
 
 using namespace P2S::App;
 using namespace P2S::Lib;
 using namespace std;
 
-RpcMethods::RpcMethods(const IServerPtr& server)
+RpcMethods::RpcMethods(const IServerPtr& server, const IDataStorePtr &dstore) : paths(
+    {
+        { "datastorePut" , make_shared<DataStorePut>(dstore) }
+    })
 {
     server->Subscribe("/rpc", HTTPMethod::POST, [&](const string& req){
+
         JsonRpcRequest request;
         request.Deserialize(req);
         IResponsePtr response;
         try{
-            response = this->paths[request.GetMethod()](request.GetParams());
+            response = this->paths[request.GetMethod()]->Execute(request.GetParams());
         }
         catch(...)
         {
@@ -23,4 +28,3 @@ RpcMethods::RpcMethods(const IServerPtr& server)
         return response;
     });
 }
-
