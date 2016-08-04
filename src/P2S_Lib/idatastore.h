@@ -1,6 +1,7 @@
 #pragma once
 
 #include "p2slib.h"
+#include "../../dependencies/json.hpp"
 
 namespace P2S {
 namespace Lib {
@@ -13,8 +14,9 @@ class P2S_LIBSHARED_EXPORT IDataStore
 {
 public:
     virtual void Connect(const std::string& host, const uint16_t& port) = 0;
-    virtual void Set(std::string key, std::string value) = 0;
-    virtual std::string Get(std::string key) = 0;
+    virtual void Put(std::string key, std::vector<nlohmann::json> changes) = 0;
+    virtual std::vector<nlohmann::json> Get(std::string key, bool all, std::vector<std::string> ids ) = 0;
+    virtual std::vector<nlohmann::json> Meta(std::string key) = 0;
     virtual ~IDataStore() = default;
 };
 

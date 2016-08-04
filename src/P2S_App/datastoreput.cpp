@@ -1,5 +1,5 @@
 #include "datastoreput.h"
-
+#include <jsonrpcresponse.h>
 
 using namespace P2S::App;
 using namespace P2S::Lib;
@@ -12,5 +12,10 @@ DataStorePut::DataStorePut(const IDataStorePtr& dstore)
 
 IResponsePtr DataStorePut::Execute(const nlohmann::json &params)
 {
-    throw("Not Implemented Exception");
+    auto allChanges = params["changes"];
+    vector<nlohmann::json> changes;
+    for (auto& change : allChanges)
+        changes.push_back(change);
+    datastore->Put(params["collection"], changes);
+    return make_shared<ValidJsonRpcResponse>("",0);
 }
