@@ -15,9 +15,9 @@ RpcMethods::RpcMethods(const IServerPtr& server, const IDataStorePtr &dstore) : 
     server->Subscribe("/rpc", HTTPMethod::POST, [&](const string& req){
 
         JsonRpcRequest request;
-        request.Deserialize(req);
         IResponsePtr response;
         try{
+            request.Deserialize(req);
             response = this->paths[request.GetMethod()]->Execute(request.GetParams());
         }
         catch(...)
