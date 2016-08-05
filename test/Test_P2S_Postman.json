@@ -12,7 +12,7 @@
 			"description": "",
 			"item": [
 				{
-					"name": "http://localhost:8080/rpc",
+					"name": "empty request",
 					"event": [
 						{
 							"listen": "test",
@@ -29,6 +29,35 @@
 						"body": {
 							"mode": "formdata",
 							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "wrong method",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "tests[\"Body matches string\"] = responseBody.has(\"{\\\"error\\\":{\\\"code\\\":0,\\\"data\\\":\\\"\\\",\\\"message\\\":\\\"Exception has been throw\\\"},\\\"id\\\":0,\\\"jsonrpc\\\":\\\"2.0\\\"}\");"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8080/rpc",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"jsonrpc\": \"2.0\", \"method\":\"somethingElse\", \"params\": [42], \"id\": 2}"
 						},
 						"description": ""
 					},

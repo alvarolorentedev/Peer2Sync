@@ -18,6 +18,8 @@ RpcMethods::RpcMethods(const IServerPtr& server, const IDataStorePtr &dstore) : 
         IResponsePtr response;
         try{
             request.Deserialize(req);
+            if(this->paths.find(request.GetMethod()) == this->paths.end())
+                throw("Method does not exist");
             response = this->paths[request.GetMethod()]->Execute(request.GetParams());
         }
         catch(...)
