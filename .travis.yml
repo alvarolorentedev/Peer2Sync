@@ -33,8 +33,4 @@ script:
     - qmake
     - make
     - ./test/P2S_Lib_Test/p2s_lib_test
-    - redis-server&
-    - sleep 10 && ./src/P2S_App/P2S_App&
-    - newman -c ./test/Test_P2S_Postman.json -x
-    - sudo pkill P2S_App
-    - sudo pkill redis-server
+    - redis-server& && sleep 60 && ./src/P2S_App/P2S_App& && sleep 10 && newman -c ./test/Test_P2S_Postman.json -x
