@@ -2,6 +2,7 @@
 #include <jsonrpcresponse.h>
 #include <jsonrpcrequest.h>
 #include "datastoreput.h"
+#include "datastoreget.h"
 
 using namespace P2S::App;
 using namespace P2S::Lib;
@@ -9,7 +10,8 @@ using namespace std;
 
 RpcMethods::RpcMethods(const IServerPtr& server, const IDataStorePtr &dstore) : paths(
     {
-        { "datastorePut" , make_shared<DataStorePut>(dstore) }
+        { "datastorePut" , make_shared<DataStorePut>(dstore) },
+        { "datastoreGet" , make_shared<DataStoreGet>(dstore) }
     })
 {
     server->Subscribe("/rpc", HTTPMethod::POST, [&](const string& req){
