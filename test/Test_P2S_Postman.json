@@ -66,6 +66,70 @@
 			]
 		},
 		{
+			"name": "datastoreGet",
+			"description": "",
+			"item": [
+				{
+					"name": "get",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "tests[\"Body matches string\"] = responseBody.has('{\"id\":0,\"jsonrpc\":\"2.0\",\"result\":\"\"}');"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8080/rpc",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"jsonrpc\": \"2.0\", \"method\":\"datastoreGet\", \"params\": {\"collection\": \"testCollection\", \"all\": true,\"ids\": [] }, \"id\": 2}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getone",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "tests[\"Body matches string\"] = responseBody.has('{\"id\":0,\"jsonrpc\":\"2.0\",\"result\":\"\"}');"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8080/rpc",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"jsonrpc\": \"2.0\", \"method\":\"datastoreGet\", \"params\": {\"collection\": \"testCollection\", \"all\": false,\"ids\": [\"troloro12345\"] }, \"id\": 2}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "datastorePut",
 			"description": "",
 			"item": [
