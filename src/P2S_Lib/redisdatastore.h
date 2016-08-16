@@ -17,7 +17,8 @@ class P2S_LIBSHARED_EXPORT RedisDataStore : public IDataStore
 public:
     virtual void Connect(const std::string& host, const uint16_t& port);
     virtual void Put(std::string key,  std::vector<nlohmann::json> changes);
-    virtual std::vector<nlohmann::json> Get(std::string key, bool all, std::vector<std::string> ids );
+    virtual std::vector<nlohmann::json> Get(std::string key);
+    virtual std::vector<nlohmann::json> Get(std::string key, std::vector<std::string> ids );
     virtual std::vector<nlohmann::json> Meta(std::string key);
 };
 
