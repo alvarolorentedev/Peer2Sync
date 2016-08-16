@@ -75,6 +75,24 @@ vector<json> RedisDataStore::Get(string key, vector<string> ids)
 
 vector<json> RedisDataStore::Meta(string key)
 {
-    throw("Not Implemented Exception");
+    std::mutex m;
+    std::unique_lock<std::mutex> lock(m);
+    std::condition_variable cond_var;
+    vector<json> result;
+    bool gotResult = false;
+    client.get(key, [&] (cpp_redis::reply& reply) {
+        json collection = json::parse(reply.as_string());
+        for (auto& element : collection){
+            json local;
+            local["id"] = element["_id"];
+            local["mtime"] = element["_mtime"];
+            result.push_back(local);
+        }
+        gotResult = true;
+        cond_var.notify_one();
+      });
+    client.commit();
+    cond_var.wait(lock, [&]() { return gotResult; });
+    return result;
 }
 

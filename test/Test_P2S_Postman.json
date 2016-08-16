@@ -163,6 +163,41 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "4_datastoreMeta",
+			"description": "",
+			"item": [
+				{
+					"name": "Meta",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var data = JSON.parse(responseBody);\ntests[\"airports has results\"] = data !== undefined && data.length != 0;"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8080/rpc",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"jsonrpc\": \"2.0\", \"method\":\"datastoreMeta\", \"params\": {\"collection\": \"testCollection\"}, \"id\": 2}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

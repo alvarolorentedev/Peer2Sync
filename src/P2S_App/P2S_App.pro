@@ -13,7 +13,8 @@ SOURCES += main.cpp \
     CrowServer.cpp \
     rpcmethods.cpp \
     datastoreput.cpp \
-    datastoreget.cpp
+    datastoreget.cpp \
+    datastoremeta.cpp
 
 HEADERS += \
     precompiled.h \
@@ -23,7 +24,8 @@ HEADERS += \
     rpcmethods.h \
     datastoreput.h \
     irpcmethod.h \
-    datastoreget.h
+    datastoreget.h \
+    datastoremeta.h
 
 LIBS += \
   -lboost_thread \
