@@ -27,6 +27,7 @@ LIBS += \
   -lboost_thread \
   -lboost_system \
   -pthread \
+  -lcpp_redis \
   -L$$OUT_PWD/../P2S_Lib/ -lP2S_Lib \
   -Wl,-rpath=$$OUT_PWD/../P2S_Lib
   

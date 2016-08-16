@@ -33,6 +33,7 @@ script:
     - qmake
     - make
     - ./test/P2S_Lib_Test/p2s_lib_test
+    - redis-server &
     - ./src/P2S_App/P2S_App&
     - newman -c ./test/Test_P2S_Postman.json -x
     - sudo pkill P2S_App
