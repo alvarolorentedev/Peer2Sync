@@ -17,6 +17,7 @@ SOURCES += \
     jsonrpcrequest.cpp \
     jsonrpcresponse.cpp \
     jsonrpcvalidator.cpp \
+    redisdatastore.cpp
 
 HEADERS += precompiled.h \
     irequest.h \
@@ -25,5 +26,7 @@ HEADERS += precompiled.h \
     jsonrpcresponse.h \
     jsonrpcvalidator.h \
     p2slib.h \
+    idatastore.h \
+    redisdatastore.h
 
-
+LIBS += -lcpp_redis \

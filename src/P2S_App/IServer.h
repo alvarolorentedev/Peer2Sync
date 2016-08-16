@@ -26,6 +26,9 @@ public:
     virtual ~IServer() = default;
 };
 
+
+using IServerPtr = std::shared_ptr<IServer>;
+
 }
 }
 

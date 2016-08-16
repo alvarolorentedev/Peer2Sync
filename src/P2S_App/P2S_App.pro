@@ -10,18 +10,24 @@ QMAKE_CXXFLAGS += -O3 -std=c++14
 PRECOMPILED_HEADER = precompiled.h
 
 SOURCES += main.cpp \
-    CrowServer.cpp
+    CrowServer.cpp \
+    rpcmethods.cpp \
+    datastoreput.cpp
 
 HEADERS += \
     precompiled.h \
     CrowServer.h \
     IServer.h \
-    precompiled.h
+    precompiled.h \
+    rpcmethods.h \
+    datastoreput.h \
+    irpcmethod.h
 
 LIBS += \
   -lboost_thread \
   -lboost_system \
   -pthread \
+  -lcpp_redis \
   -L$$OUT_PWD/../P2S_Lib/ -lP2S_Lib \
   -Wl,-rpath=$$OUT_PWD/../P2S_Lib
   
