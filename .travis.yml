@@ -20,7 +20,9 @@ addons:
             - nodejs-legacy
             - libgtest-dev
             - cmake
-            - redis-server
+
+services:
+  - redis-server
 
 install:
     - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 60 --slave /usr/bin/g++ g++ /usr/bin/g++-5
@@ -33,8 +35,7 @@ script:
     - qmake
     - make
     - ./test/P2S_Lib_Test/p2s_lib_test
-    - redis-server&
-    - sleep 200 && ./src/P2S_App/P2S_App&
-    - sleep 10 && newman -c ./test/Test_P2S_Postman.json -x
+    - ./src/P2S_App/P2S_App&
+    - newman -c ./test/Test_P2S_Postman.json -x
     - sudo pkill P2S_App
     - sudo pkill redis-server
