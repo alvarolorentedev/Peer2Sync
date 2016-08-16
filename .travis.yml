@@ -37,3 +37,4 @@ script:
     - ./src/P2S_App/P2S_App&
     - newman -c ./test/Test_P2S_Postman.json -x
     - sudo pkill P2S_App
+    - sudo pkill redis-server
