@@ -20,6 +20,8 @@ public:
     virtual std::vector<nlohmann::json> Get(std::string key);
     virtual std::vector<nlohmann::json> Get(std::string key, std::vector<std::string> ids );
     virtual std::vector<nlohmann::json> Meta(std::string key);
+private:
+    std::string GetSync(std::string key);
 };
 
 }
