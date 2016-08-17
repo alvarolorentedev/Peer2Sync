@@ -8,7 +8,7 @@
 	},
 	"item": [
 		{
-			"name": "1_General",
+			"name": "1 General",
 			"description": "",
 			"item": [
 				{
@@ -18,7 +18,7 @@
 							"listen": "test",
 							"script": {
 								"type": "text/javascript",
-								"exec": "tests[\"Body matches string\"] = responseBody.has(\"{\\\"error\\\":{\\\"code\\\":0,\\\"data\\\":\\\"\\\",\\\"message\\\":\\\"Exception has been throw\\\"},\\\"id\\\":0,\\\"jsonrpc\\\":\\\"2.0\\\"}\");"
+								"exec": "var expected = '{\"error\":{\"code\":-32600,\"data\":\"\",\"message\":\"parse error - unexpected end of input\"},\"id\":\"\",\"jsonrpc\":\"2.0\"}'\ntests[\"Body is error -32600\"] = responseBody === expected;"
 							}
 						}
 					],
@@ -41,7 +41,7 @@
 							"listen": "test",
 							"script": {
 								"type": "text/javascript",
-								"exec": "tests[\"Body matches string\"] = responseBody.has(\"{\\\"error\\\":{\\\"code\\\":0,\\\"data\\\":\\\"\\\",\\\"message\\\":\\\"Exception has been throw\\\"},\\\"id\\\":0,\\\"jsonrpc\\\":\\\"2.0\\\"}\");"
+								"exec": "var expected = '{\"error\":{\"code\":-32601,\"data\":\"\",\"message\":\"Method does not exist\"},\"id\":\"2\",\"jsonrpc\":\"2.0\"}'\ntests[\"Body is error -32601\"] = responseBody === expected;"
 							}
 						}
 					],
@@ -66,7 +66,7 @@
 			]
 		},
 		{
-			"name": "2_datastorePut",
+			"name": "2 Put",
 			"description": "",
 			"item": [
 				{
@@ -76,7 +76,7 @@
 							"listen": "test",
 							"script": {
 								"type": "text/javascript",
-								"exec": "tests[\"Body matches string\"] = responseBody.has('{\"id\":0,\"jsonrpc\":\"2.0\",\"result\":\"\"}');"
+								"exec": "var expected = '{\"id\":\"2\",\"jsonrpc\":\"2.0\",\"result\":\"\"}'\ntests[\"Body is response\"] = responseBody === expected;"
 							}
 						}
 					],
@@ -92,7 +92,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"jsonrpc\": \"2.0\", \"method\":\"datastorePut\", \"params\": {\"collection\": \"testCollection\", \"changes\": [{ \"_id\": \"troloro12345\", \"_mtime\": 12345, \"_delete\": false}] }, \"id\": 2}"
+							"raw": "{\"jsonrpc\": \"2.0\", \"method\":\"datastorePut\", \"params\": {\"collection\": \"testCollection\", \"changes\": [{ \"_id\": \"troloro12345\", \"_mtime\": 12345, \"_delete\": false}, { \"_id\": \"troloro123456\", \"_mtime\": 12345, \"_delete\": false}] }, \"id\": 2}"
 						},
 						"description": ""
 					},
@@ -101,17 +101,75 @@
 			]
 		},
 		{
-			"name": "3_datastoreGet",
+			"name": "3 Get",
 			"description": "",
 			"item": [
 				{
-					"name": "get",
+					"name": "Get All (not exists)",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"type": "text/javascript",
-								"exec": "var data = JSON.parse(responseBody);\ntests[\"airports has results\"] = data !== undefined && data.length != 0;"
+								"exec": "var expected = '{\"error\":{\"code\":-32603,\"data\":\"\",\"message\":\"error on during getting key\"},\"id\":\"2\",\"jsonrpc\":\"2.0\"}'\ntests[\"Body is error -32603\"] = responseBody === expected;"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8080/rpc",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"jsonrpc\": \"2.0\", \"method\":\"datastoreGet\", \"params\": {\"collection\": \"testCollectionFail\", \"all\": true,\"ids\": [] }, \"id\": 2}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get One (not exists)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var expected = '{\"error\":{\"code\":-32603,\"data\":\"\",\"message\":\"error on during getting key\"},\"id\":\"2\",\"jsonrpc\":\"2.0\"}'\ntests[\"Body is error -32603\"] = responseBody === expected;"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8080/rpc",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"jsonrpc\": \"2.0\", \"method\":\"datastoreGet\", \"params\": {\"collection\": \"testCollectionFail\", \"all\": false,\"ids\": [\"troloro12345\"] }, \"id\": 2}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get All (exists)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var expected = '{\"id\":\"2\",\"jsonrpc\":\"2.0\",\"result\":\"[{\\\\\"_delete\\\\\":false,\\\\\"_id\\\\\":\\\\\"troloro12345\\\\\",\\\\\"_mtime\\\\\":12345},{\\\\\"_delete\\\\\":false,\\\\\"_id\\\\\":\\\\\"troloro123456\\\\\",\\\\\"_mtime\\\\\":12345}]\"}'\ntests[\"Body is response\"] = responseBody === expected;"
 							}
 						}
 					],
@@ -134,13 +192,13 @@
 					"response": []
 				},
 				{
-					"name": "getone",
+					"name": "Get One (exists)",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"type": "text/javascript",
-								"exec": "var data = JSON.parse(responseBody);\ntests[\"airports has results\"] = data !== undefined && data.length != 0;"
+								"exec": "var expected = '{\"id\":\"2\",\"jsonrpc\":\"2.0\",\"result\":\"[{\\\\\"_delete\\\\\":false,\\\\\"_id\\\\\":\\\\\"troloro12345\\\\\",\\\\\"_mtime\\\\\":12345}]\"}'\ntests[\"Body is response\"] = responseBody === expected;"
 							}
 						}
 					],
@@ -165,17 +223,46 @@
 			]
 		},
 		{
-			"name": "4_datastoreMeta",
+			"name": "4 Meta",
 			"description": "",
 			"item": [
 				{
-					"name": "Meta",
+					"name": "Meta (not exist)",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"type": "text/javascript",
-								"exec": "var data = JSON.parse(responseBody);\ntests[\"airports has results\"] = data !== undefined && data.length != 0;"
+								"exec": "var expected = '{\"error\":{\"code\":-32603,\"data\":\"\",\"message\":\"error on during getting key\"},\"id\":\"2\",\"jsonrpc\":\"2.0\"}'\ntests[\"Body is error -32603\"] = responseBody === expected;\n"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8080/rpc",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"jsonrpc\": \"2.0\", \"method\":\"datastoreMeta\", \"params\": {\"collection\": \"testCollectionFail\"}, \"id\": 2}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Meta (exist)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var expected = '{\"id\":\"2\",\"jsonrpc\":\"2.0\",\"result\":\"[{\\\\\"id\\\\\":\\\\\"troloro12345\\\\\",\\\\\"mtime\\\\\":12345},{\\\\\"id\\\\\":\\\\\"troloro123456\\\\\",\\\\\"mtime\\\\\":12345}]\"}'\ntests[\"Body is response\"] = responseBody === expected;"
 							}
 						}
 					],

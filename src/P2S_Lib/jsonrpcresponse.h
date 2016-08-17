@@ -18,7 +18,7 @@ private:
     JSonRPCRequestValidator validator;
 protected:
     nlohmann::json content;
-    JsonRpcResponse(uint32_t id);
+    JsonRpcResponse(std::string id);
 public:
     JsonRpcResponse() = delete;
     virtual std::string Serialize();
@@ -31,7 +31,7 @@ public:
 class P2S_LIBSHARED_EXPORT  ValidJsonRpcResponse : public JsonRpcResponse
 {
 public:
-    ValidJsonRpcResponse(std::string result, uint16_t id);
+    ValidJsonRpcResponse(std::string result, std::string id);
 };
 
 /**
@@ -41,7 +41,7 @@ public:
 class P2S_LIBSHARED_EXPORT  ErrorJsonRpcResponse : public JsonRpcResponse
 {
 public:
-    ErrorJsonRpcResponse(int code, std::string message, uint16_t id, std::string data = "");
+    ErrorJsonRpcResponse(int code, std::string message, std::string id, std::string data = "");
 };
 
 }

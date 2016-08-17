@@ -10,12 +10,12 @@ DataStorePut::DataStorePut(const IDataStorePtr& dstore)
     datastore = dstore;
 }
 
-IResponsePtr DataStorePut::Execute(const nlohmann::json &params)
+string DataStorePut::Execute(const nlohmann::json &params)
 {
     auto allChanges = params["changes"];
     vector<nlohmann::json> changes;
     for (auto& change : allChanges)
         changes.push_back(change);
     datastore->Put(params["collection"], changes);
-    return make_shared<ValidJsonRpcResponse>("",0);
+    return "";
 }
