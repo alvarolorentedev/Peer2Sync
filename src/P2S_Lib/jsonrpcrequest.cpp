@@ -22,3 +22,10 @@ nlohmann::json JsonRpcRequest::GetParams()
 {
     return content["params"];
 }
+
+string JsonRpcRequest::GetId()
+{
+    if(content.count("id") == 0)
+        return "";
+    return content["id"].dump();
+}

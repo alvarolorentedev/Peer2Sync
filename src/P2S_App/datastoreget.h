@@ -14,7 +14,7 @@ class DataStoreGet : public IRpcMethod
     P2S::Lib::IDataStorePtr datastore;
 public:
     DataStoreGet(const P2S::Lib::IDataStorePtr& dstore);
-    virtual Lib::IResponsePtr Execute(const nlohmann::json& params);
+    virtual std::string Execute(const nlohmann::json& params);
 };
 
 }

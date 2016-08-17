@@ -5,7 +5,7 @@ using namespace std;
 
 using json = nlohmann::json;
 
-JsonRpcResponse::JsonRpcResponse(uint32_t id)
+JsonRpcResponse::JsonRpcResponse(string id)
 {
     content["jsonrpc"] = "2.0";
     content["id"] = id;
@@ -17,14 +17,14 @@ string JsonRpcResponse::Serialize()
     return content.dump();
 }
 
-ErrorJsonRpcResponse::ErrorJsonRpcResponse(int code, string message, uint16_t id, string data) : JsonRpcResponse(id)
+ErrorJsonRpcResponse::ErrorJsonRpcResponse(int code, string message, string id, string data) : JsonRpcResponse(id)
 {
     content["error"]["code"] = code;
     content["error"]["message"] = message;
     content["error"]["data"] = data;
 }
 
-ValidJsonRpcResponse::ValidJsonRpcResponse(string result, uint16_t id) : JsonRpcResponse(id)
+ValidJsonRpcResponse::ValidJsonRpcResponse(string result, string id) : JsonRpcResponse(id)
 {
     content["result"] = result;
 }
