@@ -21,6 +21,12 @@ public:
     virtual ~IDataStore() = default;
 };
 
+class DataStoreException : public std::runtime_error
+{
+public:
+  DataStoreException(const std::string & err) : std::runtime_error(err) {}
+};
+
 using IDataStorePtr = std::shared_ptr<IDataStore>;
 
 }

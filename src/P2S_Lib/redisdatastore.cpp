@@ -65,20 +65,24 @@ vector<json> RedisDataStore::Meta(string key)
 
 string RedisDataStore::GetSync(string key)
 {
-    mutex m;
-    unique_lock<std::mutex> lock(m);
-    condition_variable sync;
-    string result;
-    bool gotResult = false;
-    client.get(key, [&] (cpp_redis::reply& reply) {
-        if(reply.is_error() || reply.is_null())
-            throw("error on during getting key");
-        result = reply.as_string();
-        gotResult = true;
-        sync.notify_one();
-      });
-    client.commit();
-    sync.wait(lock, [&]() { return gotResult; });
-    return result;
+        bool badReply = false;
+        mutex m;
+        unique_lock<std::mutex> lock(m);
+        condition_variable sync;
+        string result;
+        bool endLambda = false;
+        client.get(key, [&] (cpp_redis::reply& reply) throw(DataStoreException) {
+            if(!reply.is_string())
+                badReply = true;
+            else
+                result = reply.as_string();
+            endLambda = true;
+            sync.notify_one();
+          });
+        client.commit();
+        sync.wait(lock, [&]() { return endLambda; });
+        if(badReply)
+            throw DataStoreException("error on during getting key");
+        return result;
 }
 
