@@ -9,6 +9,12 @@ using namespace P2S::App;
 using namespace P2S::Lib;
 using namespace std;
 
+class NoMethodException : public std::runtime_error
+{
+public:
+  NoMethodException(const std::string & err) : std::runtime_error(err) {}
+};
+
 RpcMethods::RpcMethods(const IServerPtr& server, const IDataStorePtr &dstore) : paths(
     {
         { "datastorePut" , make_shared<DataStorePut>(dstore) },
@@ -20,16 +26,23 @@ RpcMethods::RpcMethods(const IServerPtr& server, const IDataStorePtr &dstore) : 
 
         JsonRpcRequest request;
         IResponsePtr response;
+        string id = "";
         try{
             request.Deserialize(req);
-            if(this->paths.find(request.GetMethod()) == this->paths.end())
-                throw("Method does not exist");
-            response = this->paths[request.GetMethod()]->Execute(request.GetParams());
+            id = request.GetId();
+            auto method = request.GetMethod();
+            if(this->paths.find(method) == this->paths.end())
+                response = make_shared<ErrorJsonRpcResponse>(-32601,"Method does not exist",id);
+            else
+                response = make_shared<ValidJsonRpcResponse>(this->paths[method]->Execute(request.GetParams()),id);
         }
-        catch(...)
+        catch(const DataStoreException& ex)
         {
-            //TODO: generate valid error response
-            response = make_shared<ErrorJsonRpcResponse>(0,"Exception has been throw",0);
+            response = make_shared<ErrorJsonRpcResponse>(-32603,ex.what(), id);
+        }
+        catch(const std::exception& ex)
+        {
+            response = make_shared<ErrorJsonRpcResponse>(-32600,ex.what(),id);
         }
         return response;
     });

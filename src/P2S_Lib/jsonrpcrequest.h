@@ -20,6 +20,7 @@ public:
     virtual void Deserialize(const std::string& rawContent);
     std::string GetMethod();
     nlohmann::json GetParams();
+    std::string GetId();
 };
 
 

@@ -10,8 +10,7 @@ DataStoreMeta::DataStoreMeta(const IDataStorePtr& dstore)
     datastore = dstore;
 }
 
-IResponsePtr DataStoreMeta::Execute(const nlohmann::json &params)
+string DataStoreMeta::Execute(const nlohmann::json &params)
 {
-    std::vector<nlohmann::json> result = datastore->Meta(params["collection"]);
-    return make_shared<ValidJsonRpcResponse>(nlohmann::json(result).dump(),0);
+    return nlohmann::json(datastore->Meta(params["collection"])).dump();
 }

@@ -10,7 +10,7 @@ DataStoreGet::DataStoreGet(const IDataStorePtr& dstore)
     datastore = dstore;
 }
 
-IResponsePtr DataStoreGet::Execute(const nlohmann::json &params)
+string DataStoreGet::Execute(const nlohmann::json &params)
 {
     std::vector<nlohmann::json> result;
     auto all = params["all"].get<bool>();
@@ -23,5 +23,5 @@ IResponsePtr DataStoreGet::Execute(const nlohmann::json &params)
             idsVector.push_back(id.get<string>());
         result = datastore->Get(params["collection"], ids);
     }
-    return make_shared<ValidJsonRpcResponse>(nlohmann::json(result).dump(),0);
+    return nlohmann::json(result).dump();
 }

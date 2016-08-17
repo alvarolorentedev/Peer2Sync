@@ -14,7 +14,7 @@ namespace App {
 class IRpcMethod
 {
 public:
-    virtual Lib::IResponsePtr Execute(const nlohmann::json& params) = 0;
+    virtual std::string Execute(const nlohmann::json& params) = 0;
 };
 
 
