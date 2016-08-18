@@ -1,6 +1,16 @@
 # Peer2Sync
 
-Peer to server syncronization using c++ high performance web server with a redis backend through JSON-RPC 2.0 requests. The code is contained in a docker container to simplify the deployment.
+Peer to server syncronization using c++ high performance web server with a redis backend. 
+
+The path to requests is /rpc and takes only POST requests in JSON-RPC 2.0.
+
+The purpose of this route would be to implement a simple protocol capable of P2P (master to master) syncing key-value datastores.
+
+The JSON-RPC methods that have to be implemented to cover the sync protocol are:
+datastorePut({ collection: String, changes: [Object]  }) -> returns error or nothing
+datastoreGet({ collection: String, all: Boolean, ids: [String] }) -> returns array of objects
+datastoreMeta({ collection: String }) -> returns array of tuples [object id, object mtime] for all objects of the collection
+
 
 ## Deployment
 
