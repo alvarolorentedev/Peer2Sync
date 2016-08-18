@@ -6,7 +6,7 @@ FROM ubuntu:14.04
 
 MAINTAINER Kanekotic
 
-RUN apt-get update && apt-get install -y libboost-all-dev redis-server
+RUN apt-get update && apt-get install -y libboost-all-dev redis-server libstdc++6
 
 COPY ./dependencies/libcpp_redis.so /usr/lib/
 COPY ./src/P2S_App/P2S_App /usr/bin/
