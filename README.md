@@ -1,4 +1,4 @@
-# Peer2Sync
+# ![logomakr_0ewpnu](https://cloud.githubusercontent.com/assets/3071208/17784932/e2b96a14-657e-11e6-9cf9-ad0000e3e18c.png)
 
 ##Intro
 
