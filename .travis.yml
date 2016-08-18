@@ -1,0 +1,52 @@
+sudo: required
+dist: trusty
+language: cpp
+compiler: gcc
+
+addons:
+    apt:
+        sources:
+            - ubuntu-toolchain-r-test
+        packages:
+            - qt5-qmake
+            - qt5-default
+            - qtbase5-dev
+            - qttools5-dev-tools
+            - libboost-all-dev
+            - gcc-5
+            - g++-5
+            - nodejs
+            - npm
+            - nodejs-legacy
+            - libgtest-dev
+            - cmake
+
+services:
+  - redis-server
+  - docker
+
+install:
+    - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 60 --slave /usr/bin/g++ g++ /usr/bin/g++-5
+    - sudo npm install -g newman
+    - "cd /usr/src/gtest && sudo cmake . && sudo cmake --build . && sudo mv libg* /usr/local/lib/ ; cd -"
+    - "git clone https://github.com/Cylix/cpp_redis.git && cd cpp_redis && mkdir build && cd build && cmake .. && make -j && sudo make install -j && cd .. && cd .."
+    - "sudo cp /usr/local/lib/libcpp_redis.so /usr/lib/libcpp_redis.so"
+    - "sudo cp /usr/local/lib/libcpp_redis.so ./dependencies/libcpp_redis.so"
+
+script:
+    - qmake
+    - make
+    - ./test/P2S_Lib_Test/p2s_lib_test
+    - ./src/P2S_App/P2S_App &
+    - newman -x -c ./test/Test_P2S_Postman.json
+    - sudo pkill P2S_App
+    - sudo pkill redis-server
+    - if [[ "$TRAVIS_TAG" ]]; then docker build -t kanekotic/p2s:$TRAVIS_TAG -t kanekotic/p2s:latest . ; fi
+    - if [[ "$TRAVIS_TAG" ]]; then docker run -p 8080 -e PORT=8080 -e REDIS_IP=127.0.0.1 -e REDIS_PORT=6379 --net=host kanekotic/p2s & fi
+    - if [[ "$TRAVIS_TAG" ]]; then sleep 10 ; fi
+    - if [[ "$TRAVIS_TAG" ]]; then newman -x -c ./test/Test_P2S_Postman.json ; fi
+    - if [[ "$TRAVIS_TAG" ]]; then docker stop $(docker ps -q --filter ancestor=kanekotic/p2s) ; fi
+
+after_success:
+    - if [[ "$TRAVIS_TAG" ]]; then docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" ; fi
+    - if [[ "$TRAVIS_TAG" ]]; then docker push kanekotic/p2s ; fi

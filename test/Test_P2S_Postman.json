@@ -1,0 +1,290 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Test_P2S",
+		"_postman_id": "e8fc2447-f964-3552-1838-76dcfc48b126",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1 General",
+			"description": "",
+			"item": [
+				{
+					"name": "empty request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var expected = '{\"error\":{\"code\":-32600,\"data\":\"\",\"message\":\"parse error - unexpected end of input\"},\"id\":\"\",\"jsonrpc\":\"2.0\"}'\ntests[\"Body is error -32600\"] = responseBody === expected;"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8080/rpc",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "wrong method",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var expected = '{\"error\":{\"code\":-32601,\"data\":\"\",\"message\":\"Method does not exist\"},\"id\":\"2\",\"jsonrpc\":\"2.0\"}'\ntests[\"Body is error -32601\"] = responseBody === expected;"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8080/rpc",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"jsonrpc\": \"2.0\", \"method\":\"somethingElse\", \"params\": [42], \"id\": 2}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "2 Put",
+			"description": "",
+			"item": [
+				{
+					"name": "put",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var expected = '{\"id\":\"2\",\"jsonrpc\":\"2.0\",\"result\":\"\"}'\ntests[\"Body is response\"] = responseBody === expected;"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8080/rpc",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"jsonrpc\": \"2.0\", \"method\":\"datastorePut\", \"params\": {\"collection\": \"testCollection\", \"changes\": [{ \"_id\": \"troloro12345\", \"_mtime\": 12345, \"_delete\": false}, { \"_id\": \"troloro123456\", \"_mtime\": 12345, \"_delete\": false}] }, \"id\": 2}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "3 Get",
+			"description": "",
+			"item": [
+				{
+					"name": "Get All (not exists)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var expected = '{\"error\":{\"code\":-32603,\"data\":\"\",\"message\":\"error on during getting key\"},\"id\":\"2\",\"jsonrpc\":\"2.0\"}'\ntests[\"Body is error -32603\"] = responseBody === expected;"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8080/rpc",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"jsonrpc\": \"2.0\", \"method\":\"datastoreGet\", \"params\": {\"collection\": \"testCollectionFail\", \"all\": true,\"ids\": [] }, \"id\": 2}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get One (not exists)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var expected = '{\"error\":{\"code\":-32603,\"data\":\"\",\"message\":\"error on during getting key\"},\"id\":\"2\",\"jsonrpc\":\"2.0\"}'\ntests[\"Body is error -32603\"] = responseBody === expected;"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8080/rpc",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"jsonrpc\": \"2.0\", \"method\":\"datastoreGet\", \"params\": {\"collection\": \"testCollectionFail\", \"all\": false,\"ids\": [\"troloro12345\"] }, \"id\": 2}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get All (exists)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var expected = '{\"id\":\"2\",\"jsonrpc\":\"2.0\",\"result\":\"[{\\\\\"_delete\\\\\":false,\\\\\"_id\\\\\":\\\\\"troloro12345\\\\\",\\\\\"_mtime\\\\\":12345},{\\\\\"_delete\\\\\":false,\\\\\"_id\\\\\":\\\\\"troloro123456\\\\\",\\\\\"_mtime\\\\\":12345}]\"}'\ntests[\"Body is response\"] = responseBody === expected;"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8080/rpc",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"jsonrpc\": \"2.0\", \"method\":\"datastoreGet\", \"params\": {\"collection\": \"testCollection\", \"all\": true,\"ids\": [] }, \"id\": 2}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get One (exists)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var expected = '{\"id\":\"2\",\"jsonrpc\":\"2.0\",\"result\":\"[{\\\\\"_delete\\\\\":false,\\\\\"_id\\\\\":\\\\\"troloro12345\\\\\",\\\\\"_mtime\\\\\":12345}]\"}'\ntests[\"Body is response\"] = responseBody === expected;"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8080/rpc",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"jsonrpc\": \"2.0\", \"method\":\"datastoreGet\", \"params\": {\"collection\": \"testCollection\", \"all\": false,\"ids\": [\"troloro12345\"] }, \"id\": 2}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "4 Meta",
+			"description": "",
+			"item": [
+				{
+					"name": "Meta (not exist)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var expected = '{\"error\":{\"code\":-32603,\"data\":\"\",\"message\":\"error on during getting key\"},\"id\":\"2\",\"jsonrpc\":\"2.0\"}'\ntests[\"Body is error -32603\"] = responseBody === expected;\n"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8080/rpc",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"jsonrpc\": \"2.0\", \"method\":\"datastoreMeta\", \"params\": {\"collection\": \"testCollectionFail\"}, \"id\": 2}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Meta (exist)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var expected = '{\"id\":\"2\",\"jsonrpc\":\"2.0\",\"result\":\"[{\\\\\"id\\\\\":\\\\\"troloro12345\\\\\",\\\\\"mtime\\\\\":12345},{\\\\\"id\\\\\":\\\\\"troloro123456\\\\\",\\\\\"mtime\\\\\":12345}]\"}'\ntests[\"Body is response\"] = responseBody === expected;"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8080/rpc",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"jsonrpc\": \"2.0\", \"method\":\"datastoreMeta\", \"params\": {\"collection\": \"testCollection\"}, \"id\": 2}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
