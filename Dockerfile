@@ -13,5 +13,6 @@ COPY ./src/P2S_App/P2S_App /usr/bin/
 COPY ./src/P2S_Lib/libP2S_Lib.so /usr/lib/
 COPY ./src/P2S_Lib/libP2S_Lib.so.1 /usr/lib/
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY supervisord.sh /supervisord.sh
 
 CMD ["/usr/bin/supervisord"]
