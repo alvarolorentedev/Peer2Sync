@@ -42,10 +42,11 @@ script:
     - sudo pkill P2S_App
     - sudo pkill redis-server
     - if [[ "$TRAVIS_TAG" ]]; then
-        docker build -t kanekotic/p2s .;
-        docker run -p 8080 -e PORT=8080 -e REDIS_IP=127.0.0.1 -e REDIS_PORT=6379 --net=host kanekotic/p2s &;
-        newman -c ./test/Test_P2S_Postman.json -x;
-        docker stop $(docker ps -q --filter ancestor=kanekotic/p2s);
+        docker build -t kanekotic/p2s . && \
+        docker run -p 8080 -e PORT=8080 -e REDIS_IP=127.0.0.1 -e REDIS_PORT=6379 --net=host kanekotic/p2s & \
+        sleep 10 &&
+        newman -c ./test/Test_P2S_Postman.json -x && \
+        docker stop $(docker ps -q --filter ancestor=kanekotic/p2s)
       fi
 
 after_success:
