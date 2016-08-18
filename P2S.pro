@@ -10,5 +10,4 @@ OTHER_FILES += \
     .gitignore \
     .travis.yml \
     Dockerfile \
-    supervisord.conf \
     LICENSE \
