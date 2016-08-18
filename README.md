@@ -1,16 +1,20 @@
 # Peer2Sync
 
-Peer to server syncronization using c++ high performance web server with a redis backend. 
+##Intro
 
-The path to requests is /rpc and takes only POST requests in JSON-RPC 2.0.
+Protocol capable of P2P (master to master) syncing key-value datastores. using ```c++``` high performance web server with a redis backend. The path to requests is ```/rpc``` and takes only ```POST``` requests in ```JSON-RPC 2.0```. The  methods that have been implemented are:
+- ```datastorePut({ collection: String, changes: [Object]  }) -> ```: sync objects to the server.
+- ```datastoreGet({ collection: String, all: Boolean, ids: [String] }) -> [Object]```: retrieve all of the objects which are newer on the server.
+- ```datastoreMeta({ collection: String }) -> [id,mtime]```: get last modification times of all objects upstream.
 
-The purpose of this route would be to implement a simple protocol capable of P2P (master to master) syncing key-value datastores.
-
-The JSON-RPC methods that have to be implemented to cover the sync protocol are:
-datastorePut({ collection: String, changes: [Object]  }) -> returns error or nothing
-datastoreGet({ collection: String, all: Boolean, ids: [String] }) -> returns array of objects
-datastoreMeta({ collection: String }) -> returns array of tuples [object id, object mtime] for all objects of the collection
-
+Arguments explanation:
+- ```collection```: this is a string identifier of the collection we want to sync.
+- ```changes```: this is an array of objects to save in the collection; every object can be anything (JSON object). Has three special properties:
+  - ```_id```: (always required) is the object key/id. 
+  - ```_mtime```: is the last time the object was modified. 
+  - ```_delete```: is set to true if we want to remove this object from the collection.
+- ```all```: this is a boolean which, when set to true, makes datastoreGet return all objects in the collection
+- ```ids```: array of strings, required when we don’t pass { all: true } to datastoreGet: specifies which objects to fetch from the database.
 
 ## Deployment
 
