@@ -6,13 +6,12 @@ FROM ubuntu:16.04
 
 MAINTAINER Kanekotic
 
-RUN apt-get update && apt-get install -y libboost-all-dev redis-server
-RUN redis-server&
+RUN apt-get update && apt-get install -y libboost-all-dev redis-server supervisor
 
-RUN mkdir /P2S
+COPY ./dependencies/libcpp_redis.so /usr/lib/
+COPY ./src/P2S_App/P2S_App /usr/bin/
+COPY ./src/P2S_Lib/libP2S_Lib.so /usr/lib/
+COPY ./src/P2S_Lib/libP2S_Lib.so.1 /usr/lib/
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-ADD /usr/lib/libcpp_redis.so /P2S/
-ADD ./test/P2S_App/P2S_App /P2S/
-ADD ./test/P2S_Lib/libP2S_Lib.so /P2S/
-
-CMD ["/P2S/P2S_App"]
+CMD ["/usr/bin/supervisord"]
