@@ -15,4 +15,6 @@ COPY ./src/P2S_Lib/libP2S_Lib.so.1 /usr/lib/
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY supervisord.sh /supervisord.sh
 
+EXPOSE 6379
+
 CMD ["/usr/bin/supervisord"]
