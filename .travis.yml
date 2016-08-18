@@ -12,6 +12,7 @@ addons:
             - qt5-default
             - qtbase5-dev
             - qttools5-dev-tools
+            - libboost-all-dev
             - gcc-5
             - g++-5
             - nodejs
