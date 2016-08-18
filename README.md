@@ -14,7 +14,10 @@ Arguments explanation:
   - ```_mtime```: is the last time the object was modified. 
   - ```_delete```: is set to true if we want to remove this object from the collection.
 - ```all```: this is a boolean which, when set to true, makes datastoreGet return all objects in the collection
-- ```ids```: array of strings, required when we don’t pass { all: true } to datastoreGet: specifies which objects to fetch from the database.
+- ```ids```: array of strings, specifies which objects to fetch from the database.
+
+The implementation is integrated in Travis-CI, that will generate and publish automatically containers to easy deploy the application.
+
 
 ## Deployment
 
