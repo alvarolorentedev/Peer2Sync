@@ -1,14 +1,14 @@
 #include <gtest/gtest.h>
-#include <jsonrpcrequest.h>
+#include <jsonrpcresponse.h>
 
 using namespace P2S::Lib;
 
-TEST(RPCRequestTest, ParseCorrectJsonRPC) {
-    JsonRpcRequest request;
-    ASSERT_NO_THROW(request.Deserialize("{\"jsonrpc\": \"2.0\", \"method\":\"example\", \"params\": [42], \"id\": 2}"));
+TEST(RPCResponseTest, ValidJsonRpcResponseTest) {
+    ValidJsonRpcResponse response("it works", "10");
+    EXPECT_EQ("{\"id\":\"10\",\"jsonrpc\":\"2.0\",\"result\":\"it works\"}", response.Serialize());
 }
 
-TEST(RPCRequestTest, ParseIncorrectJsonRPC) {
-    JsonRpcRequest request;
-    ASSERT_ANY_THROW(request.Deserialize("{\"jsonrpc\": \"2.0\".... \"method\":\"example\", \"id\": 2}"));
+TEST(RPCResponseTest, ErrorJsonRpcResponseTest) {
+    ErrorJsonRpcResponse response(-32700,"Parse Error", "10");
+    EXPECT_EQ("{\"error\":{\"code\":-32700,\"data\":\"\",\"message\":\"Parse Error\"},\"id\":\"10\",\"jsonrpc\":\"2.0\"}", response.Serialize());
 }

@@ -92,7 +92,65 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"jsonrpc\": \"2.0\", \"method\":\"datastorePut\", \"params\": {\"collection\": \"testCollection\", \"changes\": [{ \"_id\": \"troloro12345\", \"_mtime\": 12345, \"_delete\": false}, { \"_id\": \"troloro123456\", \"_mtime\": 12345, \"_delete\": false}] }, \"id\": 2}"
+							"raw": "{\"jsonrpc\": \"2.0\", \"method\":\"datastorePut\", \"params\": {\"collection\": \"testCollection\", \"changes\": [{ \"_id\": \"troloro12345\", \"_mtime\": 12345, \"_delete\": false}, { \"_id\": \"troloro123456\", \"_mtime\": 12345, \"_delete\": false}, { \"_id\": \"troloro1234567\", \"_mtime\": 12345, \"_delete\": false}] }, \"id\": 2}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "put remove",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var expected = '{\"id\":\"2\",\"jsonrpc\":\"2.0\",\"result\":\"\"}'\ntests[\"Body is response\"] = responseBody === expected;"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8080/rpc",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"jsonrpc\": \"2.0\", \"method\":\"datastorePut\", \"params\": {\"collection\": \"testCollection\", \"changes\": [{ \"_id\": \"troloro1234567\", \"_mtime\": 1234578, \"_delete\": true}] }, \"id\": 2}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "put edit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var expected = '{\"id\":\"2\",\"jsonrpc\":\"2.0\",\"result\":\"\"}'\ntests[\"Body is response\"] = responseBody === expected;"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8080/rpc",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"jsonrpc\": \"2.0\", \"method\":\"datastorePut\", \"params\": {\"collection\": \"testCollection\", \"changes\": [{ \"_id\": \"troloro123456\", \"_mtime\": 12345789, \"_delete\": false, \"data\": \"this is attached information\"}] }, \"id\": 2}"
 						},
 						"description": ""
 					},
@@ -169,7 +227,7 @@
 							"listen": "test",
 							"script": {
 								"type": "text/javascript",
-								"exec": "var expected = '{\"id\":\"2\",\"jsonrpc\":\"2.0\",\"result\":\"[{\\\\\"_delete\\\\\":false,\\\\\"_id\\\\\":\\\\\"troloro12345\\\\\",\\\\\"_mtime\\\\\":12345},{\\\\\"_delete\\\\\":false,\\\\\"_id\\\\\":\\\\\"troloro123456\\\\\",\\\\\"_mtime\\\\\":12345}]\"}'\ntests[\"Body is response\"] = responseBody === expected;"
+								"exec": "var expected = '{\"id\":\"2\",\"jsonrpc\":\"2.0\",\"result\":\"[{\\\\\"_delete\\\\\":false,\\\\\"_id\\\\\":\\\\\"troloro12345\\\\\",\\\\\"_mtime\\\\\":12345},{\\\\\"_delete\\\\\":false,\\\\\"_id\\\\\":\\\\\"troloro123456\\\\\",\\\\\"_mtime\\\\\":12345789,\\\\\"data\\\\\":\\\\\"this is attached information\\\\\"}]\"}'\ntests[\"Body is response\"] = responseBody === expected;"
 							}
 						}
 					],
@@ -262,7 +320,7 @@
 							"listen": "test",
 							"script": {
 								"type": "text/javascript",
-								"exec": "var expected = '{\"id\":\"2\",\"jsonrpc\":\"2.0\",\"result\":\"[{\\\\\"id\\\\\":\\\\\"troloro12345\\\\\",\\\\\"mtime\\\\\":12345},{\\\\\"id\\\\\":\\\\\"troloro123456\\\\\",\\\\\"mtime\\\\\":12345}]\"}'\ntests[\"Body is response\"] = responseBody === expected;"
+								"exec": "var expected = '{\"id\":\"2\",\"jsonrpc\":\"2.0\",\"result\":\"[{\\\\\"id\\\\\":\\\\\"troloro12345\\\\\",\\\\\"mtime\\\\\":12345},{\\\\\"id\\\\\":\\\\\"troloro123456\\\\\",\\\\\"mtime\\\\\":12345789}]\"}'\ntests[\"Body is response\"] = responseBody === expected;"
 							}
 						}
 					],
