@@ -7,7 +7,11 @@ void CrowServer::Subscribe(const std::string& path, const HTTPMethod& method, co
 {
     app.route_dynamic(std::string(path)).methods(methods[method])
             ([&, func](const crow::request& req){
-                return func(req.body)->Serialize();
+                crow::response response;
+                response.add_header("Access-Control-Allow-Origin", "*");
+                response.add_header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+                response.body = func(req.body)->Serialize();
+                return response;
             });
 }
 
