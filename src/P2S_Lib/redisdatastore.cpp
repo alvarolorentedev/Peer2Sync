@@ -16,14 +16,15 @@ void RedisDataStore::Put(string key, std::vector<json> changes)
     client.setnx(key, "{}");
     json collection = json::parse(this->GetSync(key));
     for(auto change : changes){
-        if(change["_delete"].get<bool>())
+        auto changeId = change["_id"].get<string>();
+        if(collection.count(changeId) != 0 && change["_delete"].get<bool>())
         {
-            collection.erase(change["_id"].get<string>());
+            collection.erase(changeId);
             continue;
         }
-        else if(collection.count("_id") == 0 || collection["_id"]["_mtime"].get<time_t>() < change["_mtime"].get<time_t>())
+        else if(collection.count(changeId) == 0 || collection[changeId]["_mtime"].get<time_t>() < change["_mtime"].get<time_t>())
         {
-            collection[change["_id"].get<string>()] = change;
+            collection[changeId] = change;
             continue;
         }
     }
