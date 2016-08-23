@@ -1,6 +1,7 @@
 #include "rpcmethods.h"
 #include <jsonrpcresponse.h>
 #include <jsonrpcrequest.h>
+#include <optionsresponse.h>
 #include "datastoreput.h"
 #include "datastoreget.h"
 #include "datastoremeta.h"
@@ -22,8 +23,19 @@ RpcMethods::RpcMethods(const IServerPtr& server, const IDataStorePtr &dstore) : 
         { "datastoreMeta" , make_shared<DataStoreMeta>(dstore) }
     })
 {
-    server->Subscribe("/rpc", HTTPMethod::POST, [&](const string& req){
 
+    server->Subscribe("/rpc", [&](const string& req, HTTPMethod method){
+        if(method == HTTPMethod::POST)
+            return Post(req);
+        else if (method == HTTPMethod::OPTIONS)
+            return Options();
+        else
+            throw NoMethodException("this method does not exists");
+    });
+}
+
+IResponsePtr RpcMethods::Post(const std::string& req)
+{
         JsonRpcRequest request;
         IResponsePtr response;
         string id = "";
@@ -45,5 +57,11 @@ RpcMethods::RpcMethods(const IServerPtr& server, const IDataStorePtr &dstore) : 
             response = make_shared<ErrorJsonRpcResponse>(-32600,ex.what(),id);
         }
         return response;
-    });
+}
+
+IResponsePtr RpcMethods::Options()
+{
+        IResponsePtr response;
+        response = make_shared<OptionsRPCResponse>();
+        return response;
 }

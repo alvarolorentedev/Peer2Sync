@@ -11,7 +11,8 @@ namespace App {
  */
 enum class HTTPMethod
 {
-    POST
+    POST,
+    OPTIONS
 };
 
 /**
@@ -22,6 +23,7 @@ class IServer
 {
 public:
     virtual void Subscribe(const std::string& path, const HTTPMethod& method,const std::function<Lib::IResponsePtr(std::string)>& func) = 0;
+    virtual void Subscribe(const std::string& path, const std::function<Lib::IResponsePtr(std::string, HTTPMethod)>& func) = 0;
     virtual void Start(const int& port) = 0;
     virtual ~IServer() = default;
 };

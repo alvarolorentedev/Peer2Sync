@@ -19,6 +19,9 @@ class RpcMethods
     std::map<std::string, P2S::App::IRpcMethodPtr> paths;
 public:
     RpcMethods(const P2S::App::IServerPtr& server, const P2S::Lib::IDataStorePtr& dstore);
+private:
+    P2S::Lib::IResponsePtr Post(const std::string& req);
+    P2S::Lib::IResponsePtr Options();
 };
 
 }
