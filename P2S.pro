@@ -10,4 +10,5 @@ OTHER_FILES += \
     .gitignore \
     .travis.yml \
     Dockerfile \
+    Dockerbuild \
     LICENSE \
