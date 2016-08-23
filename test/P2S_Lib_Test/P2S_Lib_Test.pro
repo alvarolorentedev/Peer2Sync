@@ -16,7 +16,8 @@ HEADERS += \
 SOURCES += main.cpp \
     jsonrpcvalidatortest.cpp \
     jsonrpcrequesttest.cpp \
-    jsonrpcresponsetest.cpp
+    jsonrpcresponsetest.cpp \
+    jsonoptionsresponse.cpp
 
 LIBS += -lgtest \
     -pthread \

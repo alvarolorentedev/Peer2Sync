@@ -62,6 +62,29 @@
 						"description": ""
 					},
 					"response": []
+				},
+				{
+					"name": "Options",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var expected = 'Allow: POST,OPTIONS'\ntests[\"Body allow\"] = responseBody === expected;"
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:8080/rpc",
+						"method": "OPTIONS",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
 				}
 			]
 		},
