@@ -250,7 +250,7 @@
 							"listen": "test",
 							"script": {
 								"type": "text/javascript",
-								"exec": "var expected = '{\"id\":\"2\",\"jsonrpc\":\"2.0\",\"result\":\"[{\\\\\"_delete\\\\\":false,\\\\\"_id\\\\\":\\\\\"troloro12345\\\\\",\\\\\"_mtime\\\\\":12345},{\\\\\"_delete\\\\\":false,\\\\\"_id\\\\\":\\\\\"troloro123456\\\\\",\\\\\"_mtime\\\\\":12345789,\\\\\"data\\\\\":\\\\\"this is attached information\\\\\"}]\"}'\ntests[\"Body is response\"] = responseBody === expected;"
+								"exec": "var expected = '{\"id\":\"2\",\"jsonrpc\":\"2.0\",\"result\":\"[{\\\\\"_id\\\\\":\\\\\"troloro12345\\\\\",\\\\\"_mtime\\\\\":12345},{\\\\\"_delete\\\\\":false,\\\\\"_id\\\\\":\\\\\"troloro123456\\\\\",\\\\\"_mtime\\\\\":12345789,\\\\\"data\\\\\":\\\\\"this is attached information\\\\\"}]\"}'\ntests[\"Body is response\"] = responseBody === expected;"
 							}
 						}
 					],
@@ -279,7 +279,7 @@
 							"listen": "test",
 							"script": {
 								"type": "text/javascript",
-								"exec": "var expected = '{\"id\":\"2\",\"jsonrpc\":\"2.0\",\"result\":\"[{\\\\\"_delete\\\\\":false,\\\\\"_id\\\\\":\\\\\"troloro12345\\\\\",\\\\\"_mtime\\\\\":12345}]\"}'\ntests[\"Body is response\"] = responseBody === expected;"
+								"exec": "var expected = '{\"id\":\"2\",\"jsonrpc\":\"2.0\",\"result\":\"[{\\\\\"_id\\\\\":\\\\\"troloro12345\\\\\",\\\\\"_mtime\\\\\":12345}]\"}'\ntests[\"Body is response\"] = responseBody === expected;"
 							}
 						}
 					],
