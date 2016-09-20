@@ -11,8 +11,8 @@ Arguments explanation:
 - ```collection```: this is a string identifier of the collection we want to sync.
 - ```changes```: this is an array of objects to save in the collection; every object can be anything (JSON object). Has three special properties:
   - ```_id```: (always required) is the object key/id. 
-  - ```_mtime```: is the last time the object was modified. 
-  - ```_delete```: is set to true if we want to remove this object from the collection.
+  - ```_mtime```: is the last time the object was modified. This is a [POSIX time](https://en.wikipedia.org/wiki/Unix_time) in millisecons.
+  - ```_delete```: is set to true if we want to remove this object from the collection. If not it can be either false or not included.
 - ```all```: this is a boolean which, when set to true, makes datastoreGet return all objects in the collection
 - ```ids```: array of strings, specifies which objects to fetch from the database.
 

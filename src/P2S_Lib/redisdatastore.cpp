@@ -6,6 +6,25 @@ using namespace std;
 
 using json = nlohmann::json;
 
+/* Helper Functions */
+
+bool Exist(string id, json collection)
+{
+    return collection.count(id) != 0;
+}
+
+bool ShouldDelete(json object)
+{
+    return object.count("_delete") !=0 && object["_delete"].get<bool>();
+}
+
+bool IsNewer(json base, json compare)
+{
+    return base["_mtime"].get<uint64_t>() < compare["_mtime"].get<uint64_t>();
+}
+
+/* Class Functions */
+
 void RedisDataStore::Connect(const string& host, const uint16_t& port)
 {
     client.connect(host, port);
@@ -17,12 +36,12 @@ void RedisDataStore::Put(string key, std::vector<json> changes)
     json collection = json::parse(this->GetSync(key));
     for(auto change : changes){
         auto changeId = change["_id"].get<string>();
-        if(collection.count(changeId) != 0 && change["_delete"].get<bool>())
+        if(Exist(changeId,collection) && ShouldDelete(change))
         {
             collection.erase(changeId);
             continue;
         }
-        else if(collection.count(changeId) == 0 || collection[changeId]["_mtime"].get<time_t>() < change["_mtime"].get<time_t>())
+        else if(!Exist(changeId,collection) || IsNewer(collection[changeId], change))
         {
             collection[changeId] = change;
             continue;
