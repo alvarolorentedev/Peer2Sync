@@ -1,0 +1,50 @@
+#######################################################################
+# Dockerfile to build Syncronization peer to peer container images
+# Based on Ubuntu
+#######################################################################
+FROM ubuntu:14.04
+
+MAINTAINER Kanekotic
+
+#add dependencies
+RUN         apt-get update \
+                && apt-get install -y \
+                    software-properties-common \
+                && add-apt-repository -y ppa:ubuntu-toolchain-r/test \
+                && add-apt-repository ppa:george-edison55/cmake-3.x \
+                && apt-get update \
+                && apt-get install -y \
+                    gcc-5 \
+                    g++-5 \
+                    libboost-all-dev \
+                    redis-server \
+                    qt5-qmake \
+                    qt5-default \
+                    qtbase5-dev \
+                    qttools5-dev-tools \
+                    git \
+                    nodejs \
+                    npm \
+                    nodejs-legacy \
+                    cmake \
+                    libgtest-dev \
+                && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 60 --slave /usr/bin/g++ g++ /usr/bin/g++-5
+
+#Install google test
+RUN cd /usr/src/gtest && sudo cmake . && sudo cmake --build . && sudo mv libg* /usr/local/lib/ ; cd -
+
+# redis client build
+RUN git clone https://github.com/Cylix/cpp_redis.git && cd cpp_redis && mkdir build && cd build && cmake .. && make -j && sudo make install -j; cd -
+RUN sudo cp /usr/local/lib/libcpp_redis.so /usr/lib/libcpp_redis.so
+
+#Install other dependencies
+RUN sudo npm install -g newman
+
+# run project build client
+ADD ./ ./project
+RUN cd project && qmake && make
+
+EXPOSE 8080
+ENV PORT 8080
+ENV REDIS_IP 127.0.0.1
+ENV REDIS_PORT 6379
